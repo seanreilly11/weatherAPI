@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	var location, index;
+	var location;
+	document.getElementById("location").focus();
 	// show results
 	$("#submit").click(function(){
 		location = document.getElementById("location").value;
@@ -126,30 +127,97 @@ function successAjax(data){
 
 		if (score > best){
 			best = score;
-			index = i;
 			topArray = [];
-			// var time = toDateTime(data.list[i].dt).getHours();
 			var obj = data.list[i];
 			topArray.push(obj);
 		}
 
-		else if (score == best){
+		else if (score == best || Math.abs(score-best) <= 2){
 			var obj = data.list[i];
 			topArray.push(obj);
 		}
 
-		console.log(best, index, score, toDateTime(data.list[i].dt));
+		data.list[i].score = score;
+
+		// console.log(best, index, score, toDateTime(data.list[i].dt));
 	}
-	console.log(topArray);
-	compareDates(topArray);
+	theBest(topArray, best);
 }
 
-function compareDates(arr){
-	document.getElementById("output").innerHTML = "<h3>There are "+arr.length+" suitable times for a piss up this week.</h3>";
+function makeDate(arr){
 	for(var i = 0; i<arr.length; i++){
-		document.getElementById("output").innerHTML += "<p>"+toDateTime(arr[i].dt)+"</p>";
+		var date = toDateTime(arr[i].dt)
+		console.log(date);
 	}
+}
+
+function compareDates(arr, index){
+	document.getElementById("output").innerHTML = "<h3 class='my-5'>There are "+arr.length+" suitable times for a piss up this week in " + capitalise() +".</h3><div class='grid mb-5' id='weather'>";
+	for(var i = 0; i<arr.length; i++){
+		var card = "";
+		var wind = (arr[i].wind.speed * 3.6).toFixed(1);
+		if(i === index){card += '<div class="card best-card pb-3">';}
+		else{card += '<div class="card p-3">';}
+		card += '<img src="http://openweathermap.org/img/wn/' + arr[i].weather[0].icon + '@2x.png" class="card-img-top" alt="Weather icon">'
+		+ '<div class="card-body"><h6 class="card-title">'+toDateTime(arr[i].dt)+'</h6>'
+		+ '<p class="card-text">Temp: '+Math.round(arr[i].main.temp)+'°C</p>'
+		+ '<p class="card-text">Weather: '+arr[i].weather[0].main+'</p>'
+		+ '<p class="card-text">Score: '+arr[i].score+'</p>'
+		+ '<p class="card-text">Wind: '+wind+'km/h</p></div></div>';
+		document.getElementById("weather").innerHTML += card;
+	}
+
+	$(".container").show();
 	window.location.href = "#output";
 }
 
+function theBest(arr, best){
+	var bestArray = [];
+	var index;
+	for(var i = 0; i<arr.length; i++){
+		if (arr[i].score == best){
+			var obj = arr[i];
+			obj.index = i
+			bestArray.push(obj);
+			index = i;
+		}
+	}
+
+	bestArray.sort(function(a,b){
+		if(b.main.temp > a.main.temp && b.wind.speed < a.wind.speed) return 2;
+		if(b.main.temp < a.main.temp && b.wind.speed > a.wind.speed) return -2;
+
+		else if(b.main.temp > a.main.temp) return 1;
+		else if(b.main.temp < a.main.temp) return -1;
+
+		else if(b.wind.speed > a.wind.speed) return -1;
+		else if(b.wind.speed < a.wind.speed) return 1;
+
+
+	})
+
+	console.log(bestArray)
+
+	compareDates(arr, index);
+}
+
+function capitalise(){
+	return location.charAt(0).toUpperCase() + location.slice(1);
+}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

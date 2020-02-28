@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 *{
 	padding: 0;
 	margin: 0;
@@ -12,7 +14,8 @@ html{
 
 body{
 	height: 100%;
-	}
+	font-family: 'Roboto', sans-serif;
+}
 
 .banner{
 	height: 100%;
@@ -29,11 +32,35 @@ body{
 
 .main-heading{
 	font-size: 60px;
-	font-weight: 700;
 	color: #fff;
 }
 
-#output{
+.container{
 	height: 100%;
 	background: #fff;
+	display: none;
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+	grid-gap: 1rem;
+}
+
+.best-card{
+	outline: 2px solid #0063E5;
+	position: relative;
+}
+
+.best-card::after{
+	content: "Best day";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #ACD0FF;
+	padding: 5px 10px;
+	border-radius: 5rem; 
+	border: 2px solid #0063E5;
+	z-index: 100;
 }
