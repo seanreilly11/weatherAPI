@@ -20,19 +20,29 @@ body{
 .banner{
 	height: 100%;
 	width: 100%;
-	display: flex;
+	/*display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
-	background: #232526;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
-	background: -webkit-linear-gradient(bottom, #414345, #232526);
-	background: -o-linear-gradient(bottom, #414345, #232526);
-	background: linear-gradient(to top, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	flex-direction: column;*/
+	background-image: url("bg1.jpg");
+	background-size: 100% 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.banner-text{
+	position: absolute;
+	top: 10vh;
+	left: 10vw;
 }
 
 .main-heading{
-	font-size: 60px;
-	color: #fff;
+	font-size: 70px;
+	color: #000;
+}
+
+.sub-heading a{
+	font-size: 1rem;
 }
 
 .container{

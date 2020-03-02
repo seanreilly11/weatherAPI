@@ -36,38 +36,6 @@ function successAjax(data){
 	var topArray = [];
 	for(var i = 0; i < data.list.length; i++){
 		var score = 0;
-		// make better scores
-		// if ((data.list[i].main.feels_like >= 16 ||
-		// 	data.list[i].main.feels_like <= 19) || 
-		// 	data.list[i].weather[0].main == "Clear" ||
-		// 	data.list[i].wind.speed < 4)score++;
-
-		// if (data.list[i].main.feels_like > 19 && 
-		// 	data.list[i].weather[0].main == "Clear" &&
-		// 	data.list[i].wind.speed < 2)score += 4;
-
-		// if (data.list[i].main.feels_like > 19 && 
-		// 	data.list[i].weather[0].main == "Clear" &&
-		// 	data.list[i].wind.speed < 4 &&
-		// 	data.list[i].wind.speed >= 2)score += 3;
-
-		// if (data.list[i].main.feels_like > 19 || 
-		// 	data.list[i].wind.speed < 2)score += 2;
-			
-		// if (data.list[i].main.feels_like < 16 || 
-		// 	data.list[i].weather[0].main == "Clouds" ||
-		// 	(data.list[i].wind.speed >= 4 || 
-		// 	data.list[i].wind.speed <= 8))score--;
-
-		// if (data.list[i].main.feels_like < 16 || 
-		// 	data.list[i].weather[0].main == "Rain" ||
-		// 	(data.list[i].wind.speed >= 4 || 
-		// 	data.list[i].wind.speed <= 8))score -= 2;
-
-		// if (data.list[i].main.feels_like < 10 || 
-		// 	data.list[i].weather[0].main == "Extreme" ||
-		// 	data.list[i].wind.speed > 8)score -= 5;
-
 		// temperature
 		if (data.list[i].main.feels_like >= 25)score += 5;
 
@@ -152,7 +120,8 @@ function makeDate(arr){
 }
 
 function compareDates(arr, index){
-	document.getElementById("output").innerHTML = "<h3 class='my-5'>There are "+arr.length+" suitable times for a piss up this week in " + capitalise() +".</h3><div class='grid mb-5' id='weather'>";
+	document.getElementById("output").innerHTML = "<h3 class='sub-heading mb-3'>There are "+arr.length+" suitable times for a piss up this week in " + capitalise() 
+	+ ". <a href='#top'>Change location</a></h3><div class='grid mb-5' id='weather'>";
 	for(var i = 0; i<arr.length; i++){
 		var card = "";
 		var wind = (arr[i].wind.speed * 3.6).toFixed(1);
@@ -163,7 +132,8 @@ function compareDates(arr, index){
 		+ '<p class="card-text">Temp: '+Math.round(arr[i].main.temp)+'°C</p>'
 		+ '<p class="card-text">Weather: '+arr[i].weather[0].main+'</p>'
 		+ '<p class="card-text">Score: '+arr[i].score+'</p>'
-		+ '<p class="card-text">Wind: '+wind+'km/h</p></div></div>';
+		+ '<p class="card-text">Wind: '+wind+'km/h</p>'
+		+ '<button class="btn btn-primary" id="arr'+i+'">Make Piss Up Today</button></div></div>';
 		document.getElementById("weather").innerHTML += card;
 	}
 
