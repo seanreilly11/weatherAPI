@@ -11,7 +11,7 @@ $(document).ready(function(){
 	// print function to display 
 	function print(){
 		$.ajax({
-			url: `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=79f0172b1b48d3921c1cb1e091dde288`,
+			url: `https://api.openweathermap.org/data/2.5/forecast?q=${location},NZ&units=metric&appid=79f0172b1b48d3921c1cb1e091dde288`,
 			type: 'GET',
 			data: 'json',
 			success: function(data){
@@ -143,28 +143,21 @@ function compareDates(arr, index){
 
 function theBest(arr, best){
 	var bestArray = [];
-	var index;
 	for(var i = 0; i<arr.length; i++){
 		if (arr[i].score == best){
 			var obj = arr[i];
 			obj.index = i
 			bestArray.push(obj);
-			index = i;
 		}
 	}
 
 	bestArray.sort(function(a,b){
-		if(b.main.temp > a.main.temp && b.wind.speed < a.wind.speed) return 2;
-		if(b.main.temp < a.main.temp && b.wind.speed > a.wind.speed) return -2;
-
-		else if(b.main.temp > a.main.temp) return 1;
-		else if(b.main.temp < a.main.temp) return -1;
-
-		else if(b.wind.speed > a.wind.speed) return -1;
-		else if(b.wind.speed < a.wind.speed) return 1;
-
-
+		if(b.main.temp > a.main.temp) return 1;
+		if(b.main.temp < a.main.temp) return -1;
 	})
+
+	var index = bestArray[0].index;
+	console.log(index);
 
 	console.log(bestArray)
 

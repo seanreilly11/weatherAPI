@@ -20,24 +20,29 @@ body{
 .banner{
 	height: 100%;
 	width: 100%;
-	/*display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;*/
 	background-image: url("bg1.jpg");
-	background-size: 100% 90%;
-	background-position: center;
+	background-size: 100% auto;
+	background-position: 0 70%;
 	background-repeat: no-repeat;
 }
 
 .banner-text{
 	position: absolute;
+	/*width: 100%;*/
 	top: 10vh;
-	left: 10vw;
+	left: 50%;
+	transform: translateX(-50%);
+	/*display: flex;*/
+	justify-content: center;align-content: center;flex-direction: column;
 }
 
+/*.banner-text{
+	position: absolute;
+	top: 10vh;
+	left: 10vw;
+}*/
 .main-heading{
-	font-size: 70px;
+	font-size: 50px;
 	color: #000;
 }
 
